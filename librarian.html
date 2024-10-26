@@ -166,201 +166,217 @@
         <div class="form-group">
             <label for="userName">User Name:</label>
             <input type="text" class="form-control" id="userName" placeholder="Enter User Name">
+            <label for="userCode">Library ID:</label>
+            <input type="text" class="form-control" id="userCode" placeholder="Enter Library ID">
+            <button class="btn btn-primary mt-2" onclick="addUser()">Add User</button>
         </div>
 
-        <script>
-            // Logout function
-            function logout() {
-                window.location.href = 'login.html';
-            }
+        <h4 class="mt-4">User List</h4>
+        <div id="userList" class="mt-3 row scrollable-container"></div>
 
-            // Manage Books
-            function addBook() {
-                let title = document.getElementById('bookTitle').value;
-                let author = document.getElementById('bookAuthor').value;
+        <!-- Book Requests -->
+        <h3 class="mt-5">Book Requests</h3>
+        <div id="requestList" class="mt-3 row scrollable-container"></div>
 
-                if (title && author) {
-                    let books = JSON.parse(localStorage.getItem('books')) || [];
-                    books.push({ title, author, isBorrowed: false, rating: null });
-                    localStorage.setItem('books', JSON.stringify(books));
-                    alert('Book added successfully!');
-                    document.getElementById('bookTitle').value = '';
-                    document.getElementById('bookAuthor').value = '';
-                    displayBooks();
-                } else {
-                    alert('Please enter both title and author.');
-                }
-            }
+        <!-- Defaulter List -->
+        <h3 class="mt-5">Defaulter List</h3>
+        <div id="defaulterList" class="mt-3 scrollable-container"></div>
+        <button class="btn btn-warning mt-2" onclick="showDefaulters()">View Defaulters</button>
+    </div>
 
-            function deleteBook(index) {
+    <script>
+        // Logout function
+        function logout() {
+            window.location.href = 'login.html';
+        }
+
+        // Manage Books
+        function addBook() {
+            let title = document.getElementById('bookTitle').value;
+            let author = document.getElementById('bookAuthor').value;
+
+            if (title && author) {
                 let books = JSON.parse(localStorage.getItem('books')) || [];
-                books.splice(index, 1);
+                books.push({ title, author, isBorrowed: false, rating: null });
                 localStorage.setItem('books', JSON.stringify(books));
-                alert('Book deleted successfully!');
+                alert('Book added successfully!');
+                document.getElementById('bookTitle').value = '';
+                document.getElementById('bookAuthor').value = '';
                 displayBooks();
+            } else {
+                alert('Please enter both title and author.');
             }
+        }
 
-            function displayBooks() {
-                let books = JSON.parse(localStorage.getItem('books')) || [];
-                let bookListDiv = document.getElementById('bookList');
-                bookListDiv.innerHTML = '';
+        function deleteBook(index) {
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            books.splice(index, 1);
+            localStorage.setItem('books', JSON.stringify(books));
+            alert('Book deleted successfully!');
+            displayBooks();
+        }
 
-                if (books.length) {
-                    books.forEach((book, index) => {
-                        let bookCard = `
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">${book.title}</h5>
-                                    <p class="card-text">Author: ${book.author}</p>
-                                    <p class="card-text">Status: ${book.isBorrowed ? 'Borrowed' : 'Available'}</p>
-                                    ${book.isBorrowed ? `<p class="card-text">Return Date: ${book.returnDate}</p>` : ''}
-                                    <button class="btn btn-danger" onclick="deleteBook(${index})">Delete</button>
-                                </div>
+        function displayBooks() {
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let bookListDiv = document.getElementById('bookList');
+            bookListDiv.innerHTML = '';
+
+            if (books.length) {
+                books.forEach((book, index) => {
+                    let bookCard = `
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">${book.title}</h5>
+                                <p class="card-text">Author: ${book.author}</p>
+                                <p class="card-text">Status: ${book.isBorrowed ? 'Borrowed' : 'Available'}</p>
+                                ${book.isBorrowed ? `<p class="card-text">Return Date: ${book.returnDate}</p>` : ''}
+                                <button class="btn btn-danger" onclick="deleteBook(${index})">Delete</button>
                             </div>
-                        </div>`;
-                        bookListDiv.innerHTML += bookCard;
-                    });
-                } else {
-                    bookListDiv.innerHTML = '<p>No books available.</p>';
-                }
+                        </div>
+                    </div>`;
+                    bookListDiv.innerHTML += bookCard;
+                });
+            } else {
+                bookListDiv.innerHTML = '<p>No books available.</p>';
             }
+        }
 
-            // Manage Users
-            function addUser() {
-                let name = document.getElementById('userName').value;
-                let code = document.getElementById('userCode').value;
+        // Manage Users
+        function addUser() {
+            let name = document.getElementById('userName').value;
+            let code = document.getElementById('userCode').value;
 
-                if (name && code) {
-                    let users = JSON.parse(localStorage.getItem('users')) || [];
-                    users.push({ name, code });
-                    localStorage.setItem('users', JSON.stringify(users));
-                    alert('User added successfully!');
-                    document.getElementById('userName').value = '';
-                    document.getElementById('userCode').value = '';
-                    displayUsers();
-                } else {
-                    alert('Please enter both name and library ID.');
-                }
-            }
-
-            function deleteUser(index) {
+            if (name && code) {
                 let users = JSON.parse(localStorage.getItem('users')) || [];
-                users.splice(index, 1);
+                users.push({ name, code });
                 localStorage.setItem('users', JSON.stringify(users));
-                alert('User deleted successfully!');
+                alert('User added successfully!');
+                document.getElementById('userName').value = '';
+                document.getElementById('userCode').value = '';
                 displayUsers();
+            } else {
+                alert('Please enter both name and library ID.');
             }
+        }
 
-            function displayUsers() {
-                let users = JSON.parse(localStorage.getItem('users')) || [];
-                let userListDiv = document.getElementById('userList');
-                userListDiv.innerHTML = '';
+        function deleteUser(index) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            users.splice(index, 1);
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('User deleted successfully!');
+            displayUsers();
+        }
 
-                if (users.length) {
-                    users.forEach((user, index) => {
-                        let userCard = `
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">${user.name}</h5>
-                                    <p class="card-text">Library ID: ${user.code}</p>
-                                    <button class="btn btn-danger" onclick="deleteUser(${index})">Delete</button>
-                                </div>
+        function displayUsers() {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            let userListDiv = document.getElementById('userList');
+            userListDiv.innerHTML = '';
+
+            if (users.length) {
+                users.forEach((user, index) => {
+                    let userCard = `
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">${user.name}</h5>
+                                <p class="card-text">Library ID: ${user.code}</p>
+                                <button class="btn btn-danger" onclick="deleteUser(${index})">Delete</button>
                             </div>
-                        </div>`;
-                        userListDiv.innerHTML += userCard;
-                    });
-                } else {
-                    userListDiv.innerHTML = '<p>No users available.</p>';
-                }
+                        </div>
+                    </div>`;
+                    userListDiv.innerHTML += userCard;
+                });
+            } else {
+                userListDiv.innerHTML = '<p>No users available.</p>';
             }
+        }
 
-            // Book Requests
-            function displayRequests() {
-                let requests = JSON.parse(localStorage.getItem('requests')) || [];
-                let books = JSON.parse(localStorage.getItem('books')) || [];
-                let requestListDiv = document.getElementById('requestList');
-                requestListDiv.innerHTML = '';
+        // Book Requests
+        function displayRequests() {
+            let requests = JSON.parse(localStorage.getItem('requests')) || [];
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let requestListDiv = document.getElementById('requestList');
+            requestListDiv.innerHTML = '';
 
-                if (requests.length) {
-                    requests.forEach((request, index) => {
-                        let book = books[request.bookIndex];
-                        let requestCard = `
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">${book.title}</h5>
-                                    <p class="card-text">Author: ${book.author}</p>
-                                    <p class="card-text">Requested by: ${request.userName}</p>
-                                    <button class="btn btn-success" onclick="approveRequest(${index})">Approve</button>
-                                    <button class="btn btn-danger" onclick="rejectRequest(${index})">Reject</button>
-                                </div>
+            if (requests.length) {
+                requests.forEach((request, index) => {
+                    let book = books[request.bookIndex];
+                    let requestCard = `
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">${book.title}</h5>
+                                <p class="card-text">Author: ${book.author}</p>
+                                <p class="card-text">Requested by: ${request.userName}</p>
+                                <button class="btn btn-success" onclick="approveRequest(${index})">Approve</button>
+                                <button class="btn btn-danger" onclick="rejectRequest(${index})">Reject</button>
                             </div>
-                        </div>`;
-                        requestListDiv.innerHTML += requestCard;
-                    });
-                } else {
-                    requestListDiv.innerHTML = '<p>No book requests available.</p>';
-                }
+                        </div>
+                    </div>`;
+                    requestListDiv.innerHTML += requestCard;
+                });
+            } else {
+                requestListDiv.innerHTML = '<p>No book requests available.</p>';
             }
+        }
 
-            function approveRequest(index) {
-                let requests = JSON.parse(localStorage.getItem('requests')) || [];
-                let books = JSON.parse(localStorage.getItem('books')) || [];
-                let request = requests[index];
+        function approveRequest(index) {
+            let requests = JSON.parse(localStorage.getItem('requests')) || [];
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let request = requests[index];
 
-                let returnDate = prompt("Enter return date (YYYY-MM-DD):");
-                if (returnDate) {
-                    books[request.bookIndex].isBorrowed = true;
-                    books[request.bookIndex].returnDate = returnDate;
-                    books[request.bookIndex].borrowedBy = request.userName;
-                    localStorage.setItem('books', JSON.stringify(books));
-                    requests.splice(index, 1);
-                    localStorage.setItem('requests', JSON.stringify(requests));
-                    alert("Book request approved!");
-                    displayRequests();
-                    displayBooks();
-                } else {
-                    alert("Return date is required.");
-                }
-            }
-
-            function rejectRequest(index) {
-                let requests = JSON.parse(localStorage.getItem('requests')) || [];
+            let returnDate = prompt("Enter return date (YYYY-MM-DD):");
+            if (returnDate) {
+                books[request.bookIndex].isBorrowed = true;
+                books[request.bookIndex].returnDate = returnDate;
+                books[request.bookIndex].borrowedBy = request.userName;
+                localStorage.setItem('books', JSON.stringify(books));
                 requests.splice(index, 1);
                 localStorage.setItem('requests', JSON.stringify(requests));
-                alert("Book request rejected!");
+                alert("Book request approved!");
                 displayRequests();
-            }
-
-            // Defaulter List
-            function showDefaulters() {
-                let books = JSON.parse(localStorage.getItem('books')) || [];
-                let defaulters = books.filter(book => {
-                    if (book.isBorrowed && book.returnDate) {
-                        let returnDate = new Date(book.returnDate);
-                        let currentDate = new Date();
-                        return returnDate < currentDate;
-                    }
-                    return false;
-                });
-                let defaulterDiv = document.getElementById('defaulterList');
-                defaulterDiv.innerHTML = '';
-
-                if (defaulters.length) {
-                    defaulterDiv.innerHTML = defaulters.map(book => `<p>${book.title} (Return Date: ${book.returnDate}) - Borrowed by: ${book.borrowedBy}</p>`).join('');
-                } else {
-                    defaulterDiv.innerHTML = '<p>No defaulters found.</p>';
-                }
-            }
-
-            window.onload = function () {
                 displayBooks();
-                displayUsers();
-                displayRequests();
-            };
-        </script>
+            } else {
+                alert("Return date is required.");
+            }
+        }
+
+        function rejectRequest(index) {
+            let requests = JSON.parse(localStorage.getItem('requests')) || [];
+            requests.splice(index, 1);
+            localStorage.setItem('requests', JSON.stringify(requests));
+            alert("Book request rejected!");
+            displayRequests();
+        }
+
+        // Defaulter List
+        function showDefaulters() {
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let defaulters = books.filter(book => {
+                if (book.isBorrowed && book.returnDate) {
+                    let returnDate = new Date(book.returnDate);
+                    let currentDate = new Date();
+                    return returnDate < currentDate;
+                }
+                return false;
+            });
+            let defaulterDiv = document.getElementById('defaulterList');
+            defaulterDiv.innerHTML = '';
+
+            if (defaulters.length) {
+                defaulterDiv.innerHTML = defaulters.map(book => `<p>${book.title} (Return Date: ${book.returnDate}) - Borrowed by: ${book.borrowedBy}</p>`).join('');
+            } else {
+                defaulterDiv.innerHTML = '<p>No defaulters found.</p>';
+            }
+        }
+
+        window.onload = function () {
+            displayBooks();
+            displayUsers();
+            displayRequests();
+        };
+    </script>
 </body>
 
 </html>

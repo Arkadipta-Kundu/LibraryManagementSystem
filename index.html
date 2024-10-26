@@ -5,164 +5,290 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Management System</title>
-    <link rel="stylesheet" href="styles2.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h3 {
+            text-align: center;
+            font-weight: bold;
+            color: #ff6f61;
+        }
+
+        label {
+            font-weight: bold;
+            color: #ff6f61;
+        }
+
+        input {
+            border-radius: 20px;
+            border: 2px solid #ff6f61;
+        }
+
+        .btn-primary {
+            background-color: #ff6f61;
+            border-color: #ff6f61;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff3d3d;
+            border-color: #ff3d3d;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+        }
+
+        .scrollable-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 2px solid #ff6f61;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #ff6f61;
+        }
+
+        .card-text {
+            color: #555;
+        }
+
+        .logout-button {
+            display: block;
+            margin: 20px auto;
+            background-color: #ff6f61;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .logout-button:hover {
+            background-color: #ff3d3d;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%288, 8, 8, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+    </style>
 </head>
 
 <body>
     <!-- Header Section -->
-    <header>
-        <div class="container">
+    <header class="container">
+        <div class="d-flex justify-content-between align-items-center">
             <!-- Logo -->
             <div class="logo">
                 <h1>Library<span>System</span></h1>
             </div>
             <!-- Navigation Links -->
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
+            <nav class="navbar navbar-expand-lg">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="nav">
+                        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    </ul>
+                </div>
             </nav>
-            <!-- Call to Action Buttons -->
-            <div class="cta-buttons">
-                <a href="#get-started" class="btn primary">Get Started</a>
-                <a href="#demo" class="btn secondary">Request Demo</a>
-            </div>
         </div>
     </header>
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
+    <section class="hero container mt-4">
+        <div class="hero-content text-center">
             <h1>Efficient & Intuitive Library Management</h1>
             <p>Streamline your library's book loans with a modern, user-friendly system.</p>
-            <div class="cta-buttons">
-                <a href="login.html" class="get-started-button">Get Started</a>
-                <a href="#learn-more" class="btn secondary">Learn More</a>
+            <div>
+                <a href="login.html" class="btn btn-primary">Get Started</a>
+                <!-- <a href="#learn-more" class="btn btn-secondary">Learn More</a> -->
             </div>
         </div>
     </section>
     <!-- About Section -->
-    <section class="about" id="about">
+    <section class="about container mt-4" id="about">
         <div class="about-content">
             <h2>About Our Library Management System</h2>
             <p>Our system is designed to help libraries efficiently manage book borrowing, returning, and applying
                 penalties for late returns. With an intuitive interface, it reduces manual efforts and enhances user
                 experience for both library staff and members.</p>
-            <div class="about-features">
-                <div class="feature">
-                    <h3>Quick Borrowing Process</h3>
-                    <p>Fast and user-friendly book borrowing features to streamline your library operations.</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h3 class="card-title">Quick Borrowing Process</h3>
+                        <p class="card-text">Fast and user-friendly book borrowing features to streamline your library operations.</p>
+                    </div>
                 </div>
-                <div class="feature">
-                    <h3>Efficient Return Management</h3>
-                    <p>Ensure smooth and accurate returns tracking with automated notifications.</p>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h3 class="card-title">Efficient Return Management</h3>
+                        <p class="card-text">Ensure smooth and accurate returns tracking with automated notifications.</p>
+                    </div>
                 </div>
-                <div class="feature">
-                    <h3>Automated Penalty System</h3>
-                    <p>Automatically apply penalties for late returns, customizable to your library’s policies.</p>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h3 class="card-title">Automated Penalty System</h3>
+                        <p class="card-text">Automatically apply penalties for late returns, customizable to your library’s policies.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-</body>
-
-</html>
-<!-- Features Section -->
-<section class="features" id="features">
-    <div class="features-content">
-        <h2>Our Key Features</h2>
-        <p>Explore the innovative tools that make managing your library a breeze.</p>
-        <div class="feature-cards">
-            <div class="feature-card">
-                <h3>Seamless Borrowing Process</h3>
-                <p>Quick and easy book loans with minimal effort.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Efficient Returns Management</h3>
-                <p>Automated tracking of book returns to ensure accuracy.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Automated Penalty Calculation</h3>
-                <p>Late fees and penalties are applied automatically based on your rules.</p>
-            </div>
-            <div class="feature-card">
-                <h3>User Account Management</h3>
-                <p>Let users view their book history, current loans, and more.</p>
-            </div>
-        </div>
-    </div>
-</section>
-</body>
-
-</html>
-<!-- Testimonials Section -->
-<section class="testimonials" id="testimonials">
-    <div class="testimonials-content">
-        <h2>What Our Users Say</h2>
-        <div class="testimonial-cards">
-            <div class="testimonial-card">
-                <p>“This library system is incredibly easy to use. It has saved us so much time in managing books and
-                    keeping track of returns.”</p>
-                <h4>– Sarah J.</h4>
-            </div>
-            <div class="testimonial-card">
-                <p>“With the automated penalties, we no longer worry about overdue fines. Our members appreciate the
-                    reminders, too!”</p>
-                <h4>– Mark T.</h4>
-            </div>
-            <div class="testimonial-card">
-                <p>“I love the analytics feature! It gives me insights on popular books and helps us make informed
-                    decisions.”</p>
-                <h4>– Emily R.</h4>
+    <!-- Features Section -->
+    <section class="features container mt-4" id="features">
+        <div class="features-content">
+            <h2>Our Key Features</h2>
+            <p>Explore the innovative tools that make managing your library a breeze.</p>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h3 class="card-title">Seamless Borrowing Process</h3>
+                        <p class="card-text">Quick and easy book loans with minimal effort.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h3 class="card-title">Efficient Returns Management</h3>
+                        <p class="card-text">Automated tracking of book returns to ensure accuracy.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h3 class="card-title">Automated Penalty Calculation</h3>
+                        <p class="card-text">Late fees and penalties are applied automatically based on your rules.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <h3 class="card-title">User Account Management</h3>
+                        <p class="card-text">Let users view their book history, current loans, and more.</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-</body>
-
-</html>
-<!-- FAQs Section -->
-<section class="faqs" id="faqs">
-    <div class="faqs-content">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-item">
-            <h3>How do I borrow a book?</h3>
-            <p>Simply log in to your account, search for the book you wish to borrow, and click the "Borrow" button.</p>
+    </section>
+    <!-- Testimonials Section -->
+    <section class="testimonials container mt-4" id="testimonials">
+        <div class="testimonials-content">
+            <h2>What Our Users Say</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <p>“This library system is incredibly easy to use. It has saved us so much time in managing books and
+                            keeping track of returns.”</p>
+                        <h4>– Sarah J.</h4>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <p>“With the automated penalties, we no longer worry about overdue fines. Our members appreciate the
+                            reminders, too!”</p>
+                        <h4>– Mark T.</h4>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <p>“I love the analytics feature! It gives me insights on popular books and helps us make informed
+                            decisions.”</p>
+                        <h4>– Emily R.</h4>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="faq-item">
-            <h3>What happens if I return a book late?</h3>
-            <p>Our system automatically applies a late fee based on your library's policies. You can view penalties in
-                your account.</p>
+    </section>
+    <!-- FAQs Section -->
+    <section class="faqs container mt-4" id="faqs">
+        <div class="faqs-content">
+            <h2>Frequently Asked Questions</h2>
+            <div class="scrollable-container">
+                <div class="faq-item">
+                    <h3>How do I borrow a book?</h3>
+                    <p>Simply log in to your account, search for the book you wish to borrow, and click the "Borrow" button.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What happens if I return a book late?</h3>
+                    <p>Our system automatically applies a late fee based on your library's policies. You can view penalties in
+                        your account.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I renew my borrowed books?</h3>
+                    <p>Yes, you can renew your borrowed books as long as they are not reserved by another user.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How do I create an account?</h3>
+                    <p>You can create an account by clicking the "Sign Up" button on our homepage and filling out the
+                        registration form.</p>
+                </div>
+            </div>
         </div>
-        <div class="faq-item">
-            <h3>Can I renew my borrowed books?</h3>
-            <p>Yes, you can renew your borrowed books as long as they are not reserved by another user.</p>
+    </section>
+    <!-- Footer Section -->
+    <footer class="container mt-4">
+        <div class="footer-content text-center">
+            <p>&copy; 2024 Library Management System. All Rights Reserved.</p>
+            <ul class="nav justify-content-center">
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                <li class="nav-item"><a class="nav-link" href="#faqs">FAQs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
+            </ul>
         </div>
-        <div class="faq-item">
-            <h3>How do I create an account?</h3>
-            <p>You can create an account by clicking the "Sign Up" button on our homepage and filling out the
-                registration form.</p>
-        </div>
-    </div>
-</section>
-</body>
-
-</html>
-<!-- Footer Section -->
-<footer>
-    <div class="footer-content">
-        <p>&copy; 2024 Library Management System. All Rights Reserved.</p>
-        <ul class="footer-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#faqs">FAQs</a></li>
-            <li><a href="#contact">Contact Us</a></li>
-        </ul>
-    </div>
-</footer>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -21,7 +21,8 @@
             margin-top: 30px;
         }
 
-        h1, h3 {
+        h1,
+        h3 {
             color: #ff6f61;
             text-align: center;
             font-weight: bold;
@@ -101,6 +102,18 @@
             background-color: #e0a800;
         }
 
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
         .mt-2 label {
             font-weight: bold;
             color: #ff6f61;
@@ -132,6 +145,7 @@
 <body>
     <div class="container">
         <h1 class="my-4">Reader Page</h1>
+        <h3 id="readerName"></h3>
         <button class="logout-btn" onclick="logout()">Logout</button>
 
         <!-- Search Books -->
@@ -156,6 +170,26 @@
     </div>
 
     <script>
+        // Rate a selected book
+        function rateBook(index) {
+            let rating = document.getElementById(`rating-${index}`).value;
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let book = books[index];
+
+            if (book && rating >= 1 && rating <= 5) {
+                if (!book.ratings) {
+                    book.ratings = [];
+                }
+                book.ratings.push(parseInt(rating));
+                localStorage.setItem('books', JSON.stringify(books));
+                alert("Rating submitted!");
+                displayAvailableBooks(); // Refresh available books
+                displayBorrowedBooks(); // Refresh borrowed books
+            } else {
+                alert("Invalid rating.");
+            }
+        }
+
         // Helper function to display books in card format for search results
         function displayBooks(books, containerId) {
             const container = document.getElementById(containerId);
@@ -163,9 +197,9 @@
 
             if (books.length) {
                 books.forEach((book, index) => {
-                    let averageRating = book.ratings && book.ratings.length > 0 ? 
+                    let averageRating = book.ratings && book.ratings.length > 0 ?
                         (book.ratings.reduce((a, b) => a + b, 0) / book.ratings.length).toFixed(1) : 'No ratings yet';
-                    
+
                     let bookCard = `
                         <div class="col-md-4 mb-3">
                             <div class="card">
@@ -174,9 +208,10 @@
                                     <p class="card-text">Author: ${book.author}</p>
                                     <p class="card-text">Status: ${book.isBorrowed ? 'Borrowed' : 'Available'}</p>
                                     <p class="card-text">Average Rating: ${averageRating}</p>
-                                    ${book.isBorrowed ? 
-                                        `<p class="card-text">Return Date: ${book.returnDate}</p>` : 
-                                        `<button class="btn btn-success" onclick="requestBook(${index})">Request</button>`}
+                                    ${book.isBorrowed ?
+                            `<p class="card-text">Return Date: ${book.returnDate}</p>
+                             <button class="btn btn-danger" onclick="returnBook(${index})">Return</button>` :
+                            `<button class="btn btn-success" onclick="requestBook(${index})">Request</button>`}
                                     <div class="mt-2">
                                         <label for="rating-${index}">Rate this book:</label>
                                         <input type="number" class="form-control" id="rating-${index}" min="1" max="5">
@@ -197,15 +232,40 @@
             let books = JSON.parse(localStorage.getItem('books')) || [];
             let book = books[index];
             let users = JSON.parse(localStorage.getItem('users')) || [];
-            let currentUser = users.find(user => user.code === 'currentUserId'); // Replace 'currentUserId' with actual user ID
+            let currentUserId = localStorage.getItem('currentUserId');
+            let currentUser = users.find(user => user.code === currentUserId);
+
+            if (!currentUser) {
+                alert('User not found. Please log in again.');
+                window.location.href = 'login.html';
+                return;
+            }
 
             if (!book.isBorrowed) {
                 let requests = JSON.parse(localStorage.getItem('requests')) || [];
-                requests.push({ bookIndex: index, userId: 'currentUserId', userName: currentUser.name }); // Replace 'currentUserId' with actual user ID
+                requests.push({ bookIndex: index, userId: currentUserId, userName: currentUser.name });
                 localStorage.setItem('requests', JSON.stringify(requests));
                 alert("Book request submitted!");
             } else {
                 alert("Book is already borrowed.");
+            }
+        }
+
+        // Return a book
+        function returnBook(index) {
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let book = books[index];
+
+            if (book.isBorrowed) {
+                book.isBorrowed = false;
+                book.returnDate = null;
+                book.borrowedBy = null;
+                localStorage.setItem('books', JSON.stringify(books));
+                alert("Book returned successfully!");
+                displayBorrowedBooks(); // Refresh borrowed books
+                displayAvailableBooks(); // Refresh available books
+            } else {
+                alert("This book is not currently borrowed.");
             }
         }
 
@@ -234,35 +294,29 @@
             displayBooks(borrowedBooks, 'borrowedBooks');
         }
 
-        // Rate a selected book
-        function rateBook(index) {
-            let rating = document.getElementById(`rating-${index}`).value;
-            let books = JSON.parse(localStorage.getItem('books')) || [];
-            let book = books[index];
-
-            if (book && rating >= 1 && rating <= 5) {
-                if (!book.ratings) {
-                    book.ratings = [];
-                }
-                book.ratings.push(parseInt(rating));
-                localStorage.setItem('books', JSON.stringify(books));
-                alert("Rating submitted!");
-                searchBooks(); // Refresh search results
-                displayAvailableBooks(); // Refresh available books
-                displayBorrowedBooks(); // Refresh borrowed books
-            } else {
-                alert("Invalid rating.");
-            }
-        }
-
         // Logout function
         function logout() {
             // Perform any necessary cleanup here (e.g., clearing session data)
             window.location.href = 'login.html'; // Redirect to login page
         }
 
+        // Display reader's name
+        function displayReaderName() {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            let currentUserId = localStorage.getItem('currentUserId');
+            let currentUser = users.find(user => user.code === currentUserId);
+
+            if (currentUser) {
+                document.getElementById('readerName').innerText = `Welcome, ${currentUser.name}`;
+            } else {
+                alert('User not found. Please log in again.');
+                window.location.href = 'login.html';
+            }
+        }
+
         // Populate the rating dropdown and display available and borrowed books on page load
         window.onload = function () {
+            displayReaderName();
             displayAvailableBooks();
             displayBorrowedBooks();
         };
