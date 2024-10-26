@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reader - Library</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        h1, h3 {
+            color: #ff6f61;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #ff6f61;
+        }
+
+        .form-control {
+            border-radius: 20px;
+            border: 2px solid #ff6f61;
+        }
+
+        .btn-primary {
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff3d3d;
+        }
+
+        .scrollable-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 2px solid #ff6f61;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            color: #ff6f61;
+            font-weight: bold;
+        }
+
+        .card-text {
+            color: #555;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+
+        .mt-2 label {
+            font-weight: bold;
+            color: #ff6f61;
+        }
+
+        .form-control {
+            border-radius: 20px;
+            border: 2px solid #ff6f61;
+        }
+
+        .logout-btn {
+            display: block;
+            margin: 0 auto;
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+
+        .logout-btn:hover {
+            background-color: #ff3d3d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="my-4">Reader Page</h1>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+
+        <!-- Search Books -->
+        <div class="form-group">
+            <label for="searchBook">Search Books:</label>
+            <input type="text" class="form-control" id="searchBook" placeholder="Enter book title or author">
+            <button class="btn btn-primary mt-2" onclick="searchBooks()">Search</button>
+        </div>
+        <div id="searchResults" class="mt-3 row scrollable-container"></div>
+
+        <!-- Available Books -->
+        <div class="mt-5">
+            <h3>Available Books</h3>
+            <div id="availableBooks" class="row scrollable-container"></div>
+        </div>
+
+        <!-- Borrowed Books -->
+        <div class="mt-5">
+            <h3>Borrowed Books</h3>
+            <div id="borrowedBooks" class="row scrollable-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Helper function to display books in card format for search results
+        function displayBooks(books, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = ''; // Clear previous results
+
+            if (books.length) {
+                books.forEach((book, index) => {
+                    let averageRating = book.ratings && book.ratings.length > 0 ? 
+                        (book.ratings.reduce((a, b) => a + b, 0) / book.ratings.length).toFixed(1) : 'No ratings yet';
+                    
+                    let bookCard = `
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">${book.title}</h5>
+                                    <p class="card-text">Author: ${book.author}</p>
+                                    <p class="card-text">Status: ${book.isBorrowed ? 'Borrowed' : 'Available'}</p>
+                                    <p class="card-text">Average Rating: ${averageRating}</p>
+                                    ${book.isBorrowed ? 
+                                        `<p class="card-text">Return Date: ${book.returnDate}</p>` : 
+                                        `<button class="btn btn-success" onclick="requestBook(${index})">Request</button>`}
+                                    <div class="mt-2">
+                                        <label for="rating-${index}">Rate this book:</label>
+                                        <input type="number" class="form-control" id="rating-${index}" min="1" max="5">
+                                        <button class="btn btn-warning mt-2" onclick="rateBook(${index})">Submit Rating</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                    container.innerHTML += bookCard;
+                });
+            } else {
+                container.innerHTML = '<p>No books found.</p>';
+            }
+        }
+
+        // Request a book
+        function requestBook(index) {
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let book = books[index];
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            let currentUser = users.find(user => user.code === 'currentUserId'); // Replace 'currentUserId' with actual user ID
+
+            if (!book.isBorrowed) {
+                let requests = JSON.parse(localStorage.getItem('requests')) || [];
+                requests.push({ bookIndex: index, userId: 'currentUserId', userName: currentUser.name }); // Replace 'currentUserId' with actual user ID
+                localStorage.setItem('requests', JSON.stringify(requests));
+                alert("Book request submitted!");
+            } else {
+                alert("Book is already borrowed.");
+            }
+        }
+
+        // Search for books based on the title or author
+        function searchBooks() {
+            let searchQuery = document.getElementById('searchBook').value.toLowerCase();
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let results = books.filter(book =>
+                book.title.toLowerCase().includes(searchQuery) || book.author.toLowerCase().includes(searchQuery)
+            );
+
+            displayBooks(results, 'searchResults');
+        }
+
+        // Display all available books
+        function displayAvailableBooks() {
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let availableBooks = books.filter(book => !book.isBorrowed);
+            displayBooks(availableBooks, 'availableBooks');
+        }
+
+        // Display all borrowed books
+        function displayBorrowedBooks() {
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let borrowedBooks = books.filter(book => book.isBorrowed);
+            displayBooks(borrowedBooks, 'borrowedBooks');
+        }
+
+        // Rate a selected book
+        function rateBook(index) {
+            let rating = document.getElementById(`rating-${index}`).value;
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let book = books[index];
+
+            if (book && rating >= 1 && rating <= 5) {
+                if (!book.ratings) {
+                    book.ratings = [];
+                }
+                book.ratings.push(parseInt(rating));
+                localStorage.setItem('books', JSON.stringify(books));
+                alert("Rating submitted!");
+                searchBooks(); // Refresh search results
+                displayAvailableBooks(); // Refresh available books
+                displayBorrowedBooks(); // Refresh borrowed books
+            } else {
+                alert("Invalid rating.");
+            }
+        }
+
+        // Logout function
+        function logout() {
+            // Perform any necessary cleanup here (e.g., clearing session data)
+            window.location.href = 'login.html'; // Redirect to login page
+        }
+
+        // Populate the rating dropdown and display available and borrowed books on page load
+        window.onload = function () {
+            displayAvailableBooks();
+            displayBorrowedBooks();
+        };
+    </script>
+</body>
+
+</html>

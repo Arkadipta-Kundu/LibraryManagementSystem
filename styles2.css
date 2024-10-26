@@ -1,0 +1,511 @@
+/* Reset and Basic Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1c1c1c;
+    color: #f3f3f3;
+}
+
+/* Header Styling */
+header {
+    background-color: #2b2b2b;
+    padding: 20px 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo */
+.logo h1 {
+    font-size: 24px;
+    color: #f3f3f3;
+}
+
+.logo h1 span {
+    color: #4db8ff; /* Accent color for the logo text */
+}
+
+/* Navigation */
+nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+nav ul li a {
+    color: #f3f3f3;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #4db8ff;
+}
+
+/* CTA Buttons */
+.cta-buttons .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn.primary {
+    background-color: #4db8ff;
+    color: #1c1c1c;
+}
+
+.btn.primary:hover {
+    background-color: #66c2ff;
+}
+
+.btn.secondary {
+    background-color: #555;
+    color: #f3f3f3;
+    margin-left: 10px;
+}
+
+.btn.secondary:hover {
+    background-color: #777;
+}
+/* Reset and Basic Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    color: #1c1c1c;
+}
+
+/* Header Styling */
+header {
+    background-color: #2b2b2b;
+    padding: 20px 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo */
+.logo h1 {
+    font-size: 24px;
+    color: #f3f3f3;
+}
+
+.logo h1 span {
+    color: #4db8ff;
+}
+
+/* Navigation */
+nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+nav ul li a {
+    color: #f3f3f3;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #4db8ff;
+}
+
+/* CTA Buttons in Header */
+.cta-buttons .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn.primary {
+    background-color: #4db8ff;
+    color: #1c1c1c;
+}
+
+.btn.primary:hover {
+    background-color: #66c2ff;
+}
+
+.btn.secondary {
+    background-color: #555;
+    color: #f3f3f3;
+    margin-left: 10px;
+}
+
+.btn.secondary:hover {
+    background-color: #777;
+}
+
+/* Hero Section Styling */
+.hero {
+    background-color: #e6f4ff;
+    color: #1c1c1c;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.hero-content {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+/* CTA Buttons in Hero Section */
+.hero .cta-buttons .btn {
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+/* Get Started Button Styling */
+.get-started-button {
+    background-color: #4db8ff; /* Dark color to match header */
+    color: #1c1c1c;
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.get-started-button:hover {
+    background-color: #e6f4ff; /* Accent color on hover */
+    color: #1c1c1c; /* Change text color on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.hero .btn.secondary {
+    background-color: #1c1c1c;
+    color: #f3f3f3;
+    margin-left: 15px;
+}
+
+.hero .btn.secondary:hover {
+    background-color: #333;
+}
+/* About Section Styling */
+.about {
+    background-color: #2b2b2b; /* Dark color similar to the header */
+    color: #f3f3f3;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.about-content {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.about h2 {
+    font-size: 36px;
+    color: #f3f3f3;
+    margin-bottom: 20px;
+}
+
+.about p {
+    font-size: 18px;
+    color: #f3f3f3; /* Lighter text for readability */
+    margin-bottom: 40px;
+}
+
+/* Feature Boxes */
+.about-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.feature {
+    background-color: #333333; /* Slightly lighter than the section background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 250px;
+    color: #f3f3f3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.feature h3 {
+    font-size: 20px;
+    color: #4db8ff; /* Accent color for headings */
+    margin-bottom: 10px;
+}
+
+.feature p {
+    font-size: 16px;
+    color: #2b2b2b;
+}
+
+/* Feature Boxes */
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.feature {
+    background-color: #ffffff;
+    color: #1c1c1c;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    font-size: 16px;
+}
+/* Features Section Styling */
+.features {
+    background-color: #e6f4ff; /* Light color similar to the hero section */
+    color: #1c1c1c;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.features-content {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.features h2 {
+    font-size: 36px;
+    color: #1c1c1c;
+    margin-bottom: 20px;
+}
+
+.features p {
+    font-size: 18px;
+    color: #333333;
+    margin-bottom: 40px;
+}
+
+/* Feature Cards */
+.feature-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.feature-card {
+    background-color: #ffffff; /* White background for clean contrast */
+    color: #1c1c1c;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.feature-card h3 {
+    font-size: 20px;
+    color: #4db8ff; /* Accent color to match hero section */
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 16px;
+    color: #1c1c1c;
+}
+
+/* Testimonials Section Styling */
+.testimonials {
+    background-color: #2b2b2b; /* Dark color similar to the header */
+    color: #f3f3f3;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.testimonials-content {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.testimonials h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #f3f3f3;
+}
+
+/* Testimonial Cards */
+.testimonial-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.testimonial-card {
+    background-color: #333333; /* Slightly lighter than the section background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 300px;
+    color: #f3f3f3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.testimonial-card p {
+    font-size: 16px;
+    font-style: italic;
+    margin-bottom: 15px;
+    color: #e6f4ff; /* Light color for contrast */
+}
+
+.testimonial-card h4 {
+    font-size: 18px;
+    color: #4db8ff; /* Accent color matching the header */
+}
+/* FAQs Section Styling */
+.faqs {
+    background-color: #e6f4ff; /* Dark color similar to the header */
+    color: #f3f3f3;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.faqs-content {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.faqs h2 {
+    font-size: 36px;
+    color: #1c1c1c;
+    margin-bottom: 30px;
+}
+
+/* FAQ Items */
+.faq-item {
+    background-color: #333333; /* Slightly lighter than the section background */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.faq-item:hover {
+    background-color: #4d4d4d; /* Darken background on hover for effect */
+}
+
+.faq-item h3 {
+    font-size: 20px;
+    color: #4db8ff; /* Accent color to match the theme */
+    margin-bottom: 10px;
+}
+
+.faq-item p {
+    font-size: 16px;
+    color: #e6f4ff; /* Lighter color for readability */
+}
+/* Footer Styling */
+footer {
+    background-color: #1c1c1c; /* Dark color similar to the header */
+    color: #f3f3f3;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer-content {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.footer-content p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.footer-links a {
+    color: #4db8ff; /* Accent color for links */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #f3f3f3; /* Change link color on hover */
+}
